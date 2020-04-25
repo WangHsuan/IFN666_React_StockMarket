@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import Stocks from './components/Stocks';
-import Home from './components/Home'
+import Home from './components/Home';
+import Stock from './components/Stock';
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,6 +32,9 @@ function App() {
       <Switch>
         <Route path="/stocks">
           <Stocks />
+        </Route>
+        <Route path="/stock/:stockid">
+           <Stock />
         </Route>
         <Route path="/">
           <Home />

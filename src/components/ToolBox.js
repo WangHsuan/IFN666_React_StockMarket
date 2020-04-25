@@ -10,7 +10,7 @@ const ToolBox = (props) =>{
     //hook does not support second argument;
     useEffect(()=>{
         if(industry!==''){
-           console.log(industry)
+           props.change(industry);
         }
     },[industry])
     const handleSubmit = (e) =>{
@@ -32,7 +32,8 @@ const ToolBox = (props) =>{
                 <div className="ToolItem">
                     <div>Industry</div>
                     <select value={industry} onChange={handleChange} name='Industry'>
-                        <option value="healthcare">Health Care</option>
+                        <option value="clear"></option>
+                        <option value="Health">Health Care</option>
                         <option value="Industrials">Industrials</option>
                         <option value="Discretionary">Consumer Discretionary</option>
                         <option value="Information">Information Technology</option>
@@ -40,7 +41,7 @@ const ToolBox = (props) =>{
                         <option value="Utilities">Utilities</option>
                         <option value="Financials">Financials</option>
                         <option value="Estate">Real Estate</option>
-                        <option value="Engry">Engry</option>
+                        <option value="Energy">Energy</option>
                         <option value="Telecommunication">Telecommunication Services</option>
                     </select>
                 </div>
