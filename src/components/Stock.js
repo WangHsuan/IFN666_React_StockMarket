@@ -58,8 +58,12 @@ export default function Stock(){
     const handleSelect = (value) => {
         let _datelist = [...sourcestock]
         _datelist = _datelist.filter(i => {
-            return (value.slice(3,5)<=i.date.slice(3,5) && value.slice(0,2)<=i.date.slice(0,2)) && value.slice(6,10)<=i.date.slice(6,10);
+            console.log(i);
+            const finalday = new Date(`${i.date.slice(6,10)}-${i.date.slice(3,5)}-${i.date.slice(0,2)}`)
+            const selectedvalue = new Date(`${value.slice(6,10)}-${value.slice(3,5)}-${value.slice(0,2)}`)
+            return (selectedvalue<=finalday);
         })
+        console.log(_datelist);
         setstockInfo(_datelist);
         setChartToggle(true);
     }
