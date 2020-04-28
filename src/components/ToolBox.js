@@ -3,24 +3,40 @@ import React, {useState,useEffect} from 'react';
 const ToolBox = (props) =>{
     const [stock, setStock] = useState('');
     const [industry, setIndustry] = useState('');
+    const [industrylist, setIndustrylist] = useState([]);
+    let valuelist = [];
     const handleChange = (e) => {
-            e.target.name === 'Selectstock'?setStock(e.target.value):setIndustry(e.target.value);   
+            e.target.name === 'Selectstock'?setStock(e.target.value):setIndustry(e.target.value);
+            if(e.target.name !== 'Selectstock'){
+                props.change(e.target.value);
+             }   
     }
+    
 
     //hook does not support second argument;
     useEffect(()=>{
-        if(industry!==''){
-           props.change(industry);
-        }
-    },[industry])
+        
+        setIndustrylist(
+            props.industry.map(i => {  
+                    if(valuelist.indexOf(i.industry)===-1){
+                        valuelist.push(i.industry);
+                        return i.industry
+                    }
+                    return null;
+            })
+        )
+       
+    },[industry,props.industry])
+    
+
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(industry);
         const value = {
             stock:stock
         }
         props.search(value)
     }
+
     return (<div className='ToolContainer'>
                 <div className="ToolItem">
                     <div>Selectstock</div>
@@ -31,18 +47,13 @@ const ToolBox = (props) =>{
                 </div>
                 <div className="ToolItem">
                     <div>Industry</div>
-                    <select value={industry} onChange={handleChange} name='Industry'>
-                        <option value="clear"></option>
-                        <option value="Health">Health Care</option>
-                        <option value="Industrials">Industrials</option>
-                        <option value="Discretionary">Consumer Discretionary</option>
-                        <option value="Information">Information Technology</option>
-                        <option value="Staples">Consumer Staples</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Financials">Financials</option>
-                        <option value="Estate">Real Estate</option>
-                        <option value="Energy">Energy</option>
-                        <option value="Telecommunication">Telecommunication Services</option>
+                    <select name='Industry' value={industry} onChange={handleChange} >
+                    <option key='clear' ></option>
+                    {industrylist.map(i => {
+                        if(i!==null){
+                            return <option key={i} value={i}>{i}</option>
+                        }
+                    })}
                     </select>
                 </div>
         

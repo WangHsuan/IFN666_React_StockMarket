@@ -92,7 +92,7 @@ export default function Stocks({ match, location }){
       
 
     return(<div>
-        <ToolBox search={searchSymbol} change={industryfilter}/>
+        <ToolBox search={searchSymbol} change={industryfilter} industry={stock}/>
         <div 
         className='ag-theme-balham'
         style={{
